@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineStream+ Pro | Gelişmiş Dizi & Film İzleme Platformu</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Custom Styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#090c10] text-gray-100 min-h-screen flex flex-col selection:bg-red-600 selection:text-white">
+
+  <!-- Shared Universal Navbar -->
+  <div id="navbar-container"></div>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-10">
+
+    <!-- Hero Spotlight Section -->
+    <section id="hero-section" class="w-full">
+      <!-- Injected by home.js -->
+    </section>
+
+    <!-- Quick Navigation Shortcuts -->
+    <section class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <a href="series.html" class="glass-card p-4 rounded-2xl border border-white/10 flex items-center gap-3.5 group cursor-pointer hover:border-red-500/50">
+        <div class="w-12 h-12 rounded-xl bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-500 text-xl group-hover:scale-110 transition">
+          <i class="fa-solid fa-tv"></i>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-white group-hover:text-red-400 transition">Diziler</h4>
+          <p class="text-[11px] text-gray-400">3 Dizi • 4 Sezon</p>
+        </div>
+      </a>
+
+      <a href="movies.html" class="glass-card p-4 rounded-2xl border border-white/10 flex items-center gap-3.5 group cursor-pointer hover:border-amber-500/50">
+        <div class="w-12 h-12 rounded-xl bg-amber-600/20 border border-amber-500/30 flex items-center justify-center text-amber-500 text-xl group-hover:scale-110 transition">
+          <i class="fa-solid fa-film"></i>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-white group-hover:text-amber-400 transition">Filmler</h4>
+          <p class="text-[11px] text-gray-400">Dublaj & Altyazı</p>
+        </div>
+      </a>
+
+      <a href="categories.html" class="glass-card p-4 rounded-2xl border border-white/10 flex items-center gap-3.5 group cursor-pointer hover:border-cyan-500/50">
+        <div class="w-12 h-12 rounded-xl bg-cyan-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl group-hover:scale-110 transition">
+          <i class="fa-solid fa-layer-group"></i>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-white group-hover:text-cyan-400 transition">Kategoriler</h4>
+          <p class="text-[11px] text-gray-400">Gelişmiş Filtreleme</p>
+        </div>
+      </a>
+
+      <a href="watchlist.html" class="glass-card p-4 rounded-2xl border border-white/10 flex items-center gap-3.5 group cursor-pointer hover:border-purple-500/50">
+        <div class="w-12 h-12 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl group-hover:scale-110 transition">
+          <i class="fa-solid fa-bookmark"></i>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-white group-hover:text-purple-400 transition">İzleme Listem</h4>
+          <p class="text-[11px] text-gray-400">Kayıtlı Favoriler</p>
+        </div>
+      </a>
+    </section>
+
+    <!-- Continue Watching Section (LocalStorage based) -->
+    <section id="continue-watching-section" class="space-y-4 hidden">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2">
+        <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-clock-rotate-left text-cyan-400"></i> İzlemeye Devam Et
+        </h2>
+        <a href="watchlist.html" class="text-xs text-red-500 hover:text-red-400 font-semibold">Tüm Geçmiş →</a>
+      </div>
+      <div id="continue-watching-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Injected -->
+      </div>
+    </section>
+
+    <!-- Popüler Diziler (Vertical Poster Grid) -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div>
+          <h2 class="text-xl md:text-2xl font-black text-white heading-font flex items-center gap-2">
+            <i class="fa-solid fa-fire text-red-500"></i> Popüler Diziler
+          </h2>
+          <p class="text-xs text-gray-400 mt-0.5">Dikey afişler • Konu ve detaylar üzerine gelindiğinde görünür</p>
+        </div>
+        <a href="series.html" class="text-xs font-bold text-red-500 hover:text-red-400 flex items-center gap-1">
+          Tüm Diziler <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </a>
+      </div>
+
+      <!-- 2 to 4 Column Vertical Posters -->
+      <div id="home-vertical-series-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
+        <!-- Injected by home.js -->
+      </div>
+    </section>
+
+    <!-- Seçkin Filmler (Vertical Poster Grid) -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div>
+          <h2 class="text-xl md:text-2xl font-black text-white heading-font flex items-center gap-2">
+            <i class="fa-solid fa-film text-amber-500"></i> Vizyondaki Filmler
+          </h2>
+          <p class="text-xs text-gray-400 mt-0.5">Türkçe Dublaj & Altyazı seçenekleriyle</p>
+        </div>
+        <a href="movies.html" class="text-xs font-bold text-amber-500 hover:text-amber-400 flex items-center gap-1">
+          Tüm Filmler <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </a>
+      </div>
+
+      <div id="home-vertical-movies-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 md:gap-7">
+        <!-- Injected by home.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Universal Footer -->
+  <footer class="glass border-t border-white/10 mt-20 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <img src="logo.png" alt="CineStream Pro" class="h-10 w-auto object-contain filter drop-shadow-[0_2px_12px_rgba(229,9,20,0.5)]" />
+        <p class="text-xs text-gray-400">Yeni Nesil Gelişmiş Sinema & Dizi Portalı</p>
+      </div>
+
+      <div class="flex items-center gap-6 text-xs text-gray-400">
+        <a href="index.html" class="hover:text-white transition">Ana Sayfa</a>
+        <a href="series.html" class="hover:text-white transition">Diziler</a>
+        <a href="movies.html" class="hover:text-white transition">Filmler</a>
+        <a href="categories.html" class="hover:text-white transition">Kategoriler</a>
+        <a href="watchlist.html" class="hover:text-white transition">Listem</a>
+        <a href="profile.html" class="hover:text-white transition">Profilim</a>
+      </div>
+
+      <div class="text-center md:text-right text-xs text-gray-500">
+        <p>© 2026 CineStream+. Tüm hakları saklıdır.</p>
+        <p class="text-[10px] text-gray-600 mt-0.5">Sade dikey afiş tasarımı ve Google oturum altyapısı.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="auth.js"></script>
+  <script src="navbar.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>

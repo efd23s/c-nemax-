@@ -1,0 +1,321 @@
+/* CineStream+ Custom Premium Styling */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;900&display=swap');
+
+:root {
+  --primary: #e50914;
+  --primary-hover: #ff1e2b;
+  --primary-glow: rgba(229, 9, 20, 0.4);
+  --cyan: #06b6d4;
+  --cyan-glow: rgba(6, 182, 212, 0.35);
+  --bg-dark: #090c10;
+  --bg-card: #131823;
+  --bg-card-hover: #1b2332;
+  --bg-surface: #1e2638;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(229, 9, 20, 0.5);
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --gold: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090c10;
+}
+::-webkit-scrollbar-thumb {
+  background: #232d42;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #374663;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(19, 24, 35, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+.glass-nav {
+  background: rgba(9, 12, 16, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(25, 33, 49, 0.6) 0%, rgba(15, 20, 29, 0.7) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(229, 9, 20, 0.4);
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.7), 0 0 20px var(--primary-glow);
+}
+
+/* Vertical Poster Card Design */
+.vertical-media-card {
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 1rem;
+}
+
+.vertical-media-card .poster-container {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: #121721;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.vertical-media-card:hover .poster-container {
+  transform: translateY(-6px) scale(1.02);
+  border-color: rgba(229, 9, 20, 0.6);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px var(--primary-glow);
+}
+
+.vertical-media-card .poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vertical-media-card:hover .poster-img {
+  transform: scale(1.08);
+}
+
+/* Hover Overlay for Synopsis & Quick Play */
+.vertical-media-card .hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(9, 12, 16, 0.2) 0%, rgba(9, 12, 16, 0.75) 45%, rgba(9, 12, 16, 0.98) 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 20;
+}
+
+.vertical-media-card:hover .hover-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hero Carousel */
+.hero-gradient {
+  background: linear-gradient(0deg, #090c10 0%, rgba(9, 12, 16, 0.7) 45%, rgba(9, 12, 16, 0.3) 100%),
+              linear-gradient(90deg, #090c10 0%, rgba(9, 12, 16, 0.85) 40%, rgba(9, 12, 16, 0.1) 100%);
+}
+
+.heading-font {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Glow Elements */
+.btn-primary-glow {
+  background: linear-gradient(135deg, #e50914 0%, #b80710 100%);
+  box-shadow: 0 4px 20px var(--primary-glow);
+  transition: all 0.25s ease;
+}
+
+.btn-primary-glow:hover {
+  background: linear-gradient(135deg, #ff1e2b 0%, #d80813 100%);
+  box-shadow: 0 6px 26px rgba(229, 9, 20, 0.65);
+  transform: scale(1.02);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  background: rgba(4, 6, 9, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Lights Off / Cinema Mode on Watch Page */
+body.cinema-mode header,
+body.cinema-mode footer,
+body.cinema-mode .watch-header,
+body.cinema-mode .watch-info,
+body.cinema-mode .watch-comments,
+body.cinema-mode #series-episodes-section,
+body.cinema-mode .watch-controls {
+  opacity: 0.12;
+  filter: grayscale(80%);
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+body.cinema-mode .modal-player-container {
+  box-shadow: 0 0 90px rgba(0, 0, 0, 1), 0 0 50px var(--primary-glow);
+  transform: scale(1.015);
+  transition: all 0.4s ease;
+  z-index: 60;
+}
+
+/* Source & Season Tabs */
+.tab-btn {
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 2px 10px var(--primary-glow);
+}
+
+.source-pill {
+  transition: all 0.2s ease;
+}
+
+.source-pill.active {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: white;
+  border-color: #38bdf8;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+}
+
+/* Episode Card */
+.episode-card {
+  transition: all 0.25s ease;
+  border-left: 3px solid transparent;
+}
+
+.episode-card:hover {
+  background: rgba(30, 41, 59, 0.8);
+  transform: translateY(-2px);
+}
+
+.episode-card.active {
+  border-left: 3px solid var(--primary);
+  background: rgba(229, 9, 20, 0.15);
+  border-color: rgba(229, 9, 20, 0.4);
+}
+
+/* Toast Notifications */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  min-width: 280px;
+  color: #fff;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive iframe */
+.video-responsive {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  background: #000;
+  border-radius: 14px;
+}
+
+.video-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Realistic Google Login Popup styling */
+.google-account-item {
+  transition: all 0.2s ease;
+}
+.google-account-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}

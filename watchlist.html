@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İzleme Listem & Geçmiş | CineStream+ Pro</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#090c10] text-gray-100 min-h-screen flex flex-col selection:bg-red-600 selection:text-white">
+
+  <div id="navbar-container"></div>
+
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+    
+    <!-- Header -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <span class="px-3 py-1 rounded bg-red-600/20 border border-red-500/40 text-red-400 font-bold text-xs uppercase tracking-wider mb-2 inline-block">
+          Kişisel Kütüphane
+        </span>
+        <h1 class="text-3xl sm:text-4xl font-black text-white heading-font">Listem ve Geçmiş</h1>
+        <p class="text-xs sm:text-sm text-gray-300 mt-1">Kaydettiğiniz favori içerikleriniz ve kaldığınız bölümler burada saklanır.</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex items-center gap-2 p-1 bg-black/40 border border-white/10 rounded-xl">
+        <button onclick="watchlistCtrl.switchTab('favorites')" id="tab-btn-favs" class="px-4 py-2 rounded-lg text-xs font-bold transition bg-red-600 text-white cursor-pointer">
+          <i class="fa-solid fa-bookmark mr-1.5"></i> Favorilerim
+        </button>
+        <button onclick="watchlistCtrl.switchTab('history')" id="tab-btn-hist" class="px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white cursor-pointer">
+          <i class="fa-solid fa-clock-rotate-left mr-1.5"></i> İzleme Geçmişi
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Tab Content -->
+    <section id="watchlist-content-container" class="space-y-4">
+      <!-- Injected -->
+    </section>
+
+  </main>
+
+  <footer class="glass border-t border-white/10 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="CineStream Pro" class="h-8 w-auto object-contain" />
+        <span class="text-xs text-gray-400">Favorileriniz & İzleme Geçmişiniz</span>
+      </div>
+      <p class="text-xs text-gray-500">© 2026 CineStream+ Pro | Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <script src="data.js"></script>
+  <script src="auth.js"></script>
+  <script src="navbar.js"></script>
+  <script>
+    class WatchlistController {
+      constructor() {
+        this.activeTab = 'favorites';
+        this.init();
+      }
+
+      init() {
+        renderNavbar('watchlist');
+        window.renderWatchlistPage = () => this.render();
+        this.render();
+      }
+
+      switchTab(tab) {
+        this.activeTab = tab;
+        const btnFav = document.getElementById('tab-btn-favs');
+        const btnHist = document.getElementById('tab-btn-hist');
+
+        if (tab === 'favorites') {
+          btnFav.className = 'px-4 py-2 rounded-lg text-xs font-bold transition bg-red-600 text-white cursor-pointer';
+          btnHist.className = 'px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white cursor-pointer';
+        } else {
+          btnHist.className = 'px-4 py-2 rounded-lg text-xs font-bold transition bg-red-600 text-white cursor-pointer';
+          btnFav.className = 'px-4 py-2 rounded-lg text-xs font-bold transition text-gray-400 hover:text-white cursor-pointer';
+        }
+
+        this.render();
+      }
+
+      render() {
+        const container = document.getElementById('watchlist-content-container');
+
+        if (this.activeTab === 'favorites') {
+          const favIds = JSON.parse(localStorage.getItem('cinestream_favs') || '[]');
+          const favList = MEDIA_DATABASE.filter(m => favIds.includes(m.id));
+
+          if (favList.length === 0) {
+            container.innerHTML = `
+              <div class="glass-card rounded-2xl py-16 px-4 text-center text-gray-400 border border-white/10">
+                <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 text-2xl mx-auto mb-4">
+                  <i class="fa-regular fa-bookmark"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-1">Favori Listeniz Boş</h3>
+                <p class="text-xs text-gray-400 max-w-sm mx-auto mb-6">Henüz bir dizi veya film kaydetmediniz. Beğendiğiniz yapımları listeye ekleyerek kolayca ulaşın.</p>
+                <a href="index.html" class="btn-primary-glow px-6 py-2.5 rounded-xl text-white font-bold text-xs inline-flex items-center gap-2">
+                  <i class="fa-solid fa-compass"></i> Keşfetmeye Başla
+                </a>
+              </div>
+            `;
+            return;
+          }
+
+          container.innerHTML = `
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-bookmark text-red-500"></i> Favorilerim (${favList.length})
+              </h2>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              ${favList.map(item => `
+                <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between border border-white/5 relative">
+                  <div class="relative aspect-[2/3] overflow-hidden bg-gray-900 cursor-pointer" onclick="window.location.href='watch.html?id=${item.id}'">
+                    <img src="${item.poster}" class="w-full h-full object-cover group-hover:scale-108 transition duration-500 ease-out" />
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                      <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg">
+                        <i class="fa-solid fa-play text-base ml-0.5"></i>
+                      </div>
+                    </div>
+                    <div class="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold ${item.type === 'movie' ? 'bg-amber-600' : 'bg-red-600'} text-white">
+                      ${item.type === 'movie' ? 'FİLM' : 'DİZİ'}
+                    </div>
+                    <button onclick="event.stopPropagation(); window.toggleFavorite('${item.id}');" class="absolute bottom-2 right-2 p-2 rounded-full bg-red-600 hover:bg-red-700 text-white text-xs shadow-lg" title="Listeden Çıkar">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </div>
+                  <div class="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h4 class="text-sm font-bold text-white group-hover:text-red-400 transition truncate cursor-pointer" onclick="window.location.href='watch.html?id=${item.id}'">${item.title}</h4>
+                      <p class="text-[11px] text-red-300 truncate">${item.turkishTitle || item.originalTitle}</p>
+                    </div>
+                    <a href="watch.html?id=${item.id}" class="mt-3 block text-center py-2 rounded-xl bg-white/5 hover:bg-white/15 text-xs font-bold text-white transition border border-white/10">
+                      Hemen İzle
+                    </a>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else {
+          // History Tab
+          const history = JSON.parse(localStorage.getItem('cinestream_history') || '[]');
+
+          if (history.length === 0) {
+            container.innerHTML = `
+              <div class="glass-card rounded-2xl py-16 px-4 text-center text-gray-400 border border-white/10">
+                <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 text-2xl mx-auto mb-4">
+                  <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-1">İzleme Geçmişiniz Temiz</h3>
+                <p class="text-xs text-gray-400 max-w-sm mx-auto mb-6">İzlediğiniz dizi bölümleri ve filmler burada otomatik olarak listelenir.</p>
+                <a href="index.html" class="btn-primary-glow px-6 py-2.5 rounded-xl text-white font-bold text-xs inline-flex items-center gap-2">
+                  <i class="fa-solid fa-play"></i> Bir Şeyler İzle
+                </a>
+              </div>
+            `;
+            return;
+          }
+
+          container.innerHTML = `
+            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+              <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-cyan-400"></i> İzleme Geçmişi (${history.length})
+              </h2>
+              <button onclick="watchlistCtrl.clearHistory()" class="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer">
+                <i class="fa-solid fa-trash-can mr-1"></i> Geçmişi Temizle
+              </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              ${history.map(item => {
+                const media = MEDIA_DATABASE.find(m => m.id === item.id);
+                if (!media) return '';
+                const watchUrl = `watch.html?id=${media.id}&season=${item.seasonNumber || 1}&episode=${item.episodeNumber || 1}&source=${item.sourceType || 0}`;
+
+                return `
+                  <div class="glass-card rounded-xl p-3 border border-white/10 flex items-center gap-3 group hover:border-red-500/50 transition">
+                    <div class="w-20 h-16 rounded-lg overflow-hidden bg-gray-900 relative flex-shrink-0 cursor-pointer" onclick="window.location.href='${watchUrl}'">
+                      <img src="${media.backdrop || media.poster}" class="w-full h-full object-cover group-hover:scale-105 transition" />
+                      <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <i class="fa-solid fa-play text-xs text-white"></i>
+                      </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h4 class="text-xs font-bold text-white truncate cursor-pointer hover:text-red-400" onclick="window.location.href='${watchUrl}'">${media.title}</h4>
+                      <p class="text-[11px] text-red-400 truncate">${item.detailText || 'İzleniyor'}</p>
+                      <span class="text-[9px] text-gray-500">${item.watchedAt || 'Az önce'}</span>
+                    </div>
+                    <button onclick="watchlistCtrl.removeHistoryItem('${item.id}')" class="text-gray-500 hover:text-red-500 p-2" title="Kaldır">
+                      <i class="fa-solid fa-xmark text-xs"></i>
+                    </button>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        }
+      }
+
+      clearHistory() {
+        if (confirm('Tüm izleme geçmişinizi temizlemek istediğinize emin misiniz?')) {
+          localStorage.removeItem('cinestream_history');
+          this.render();
+          window.streamToast('İzleme geçmişi temizlendi.', 'info');
+        }
+      }
+
+      removeHistoryItem(mediaId) {
+        let history = JSON.parse(localStorage.getItem('cinestream_history') || '[]');
+        history = history.filter(h => h.id !== mediaId);
+        localStorage.setItem('cinestream_history', JSON.stringify(history));
+        this.render();
+        window.streamToast('İçerik geçmişten kaldırıldı.', 'info');
+      }
+    }
+
+    let watchlistCtrl;
+    document.addEventListener('DOMContentLoaded', () => {
+      watchlistCtrl = new WatchlistController();
+    });
+  </script>
+</body>
+</html>

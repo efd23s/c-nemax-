@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profilim ve Hesap Ayarları | CineStream+ Pro</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#090c10] text-gray-100 min-h-screen flex flex-col selection:bg-red-600 selection:text-white">
+
+  <div id="navbar-container"></div>
+
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+    
+    <!-- User Profile Header Card -->
+    <div class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10 flex flex-col sm:flex-row items-center sm:items-start gap-6 relative">
+      <!-- Avatar with Live Preview -->
+      <div class="relative group">
+        <img id="profile-display-avatar" 
+             src="" 
+             alt="Profil Fotoğrafı" 
+             class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover border-2 border-red-500 shadow-xl shadow-red-600/30" />
+        <button onclick="document.getElementById('avatar-gallery-section').scrollIntoView({behavior: 'smooth'})" class="absolute bottom-1 right-1 p-2 rounded-xl bg-black/80 hover:bg-black border border-white/20 text-white text-xs shadow-md" title="Fotoğraf Değiştir">
+          <i class="fa-solid fa-camera"></i>
+        </button>
+      </div>
+
+      <!-- User Info -->
+      <div class="flex-1 text-center sm:text-left space-y-1">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+          <h1 id="profile-display-name" class="text-2xl sm:text-3xl font-black text-white heading-font">Kullanıcı Adı</h1>
+          <span id="profile-badge-provider" class="px-2.5 py-0.5 rounded-full bg-red-600/20 border border-red-500/40 text-red-400 font-bold text-[11px] uppercase">
+            VIP ÜYE
+          </span>
+        </div>
+        <p id="profile-display-username" class="text-xs text-gray-400 font-medium">@kullanici</p>
+        <p id="profile-display-bio" class="text-xs sm:text-sm text-gray-300 max-w-xl mt-2 leading-relaxed">Film ve dizi tutkunu.</p>
+      </div>
+
+      <!-- Quick Action -->
+      <div class="sm:self-start">
+        <button onclick="streamAuth.logout()" class="px-4 py-2 rounded-xl bg-white/5 hover:bg-red-600/20 border border-white/10 hover:border-red-500/50 text-xs font-bold text-red-400 transition flex items-center gap-2 cursor-pointer">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Çıkış Yap
+        </button>
+      </div>
+    </div>
+
+    <!-- User Stats Counter -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="glass p-4 rounded-xl border border-white/10 text-center">
+        <span class="text-xs text-gray-400 block mb-1">Favori İçerikler</span>
+        <span id="stat-favs-count" class="text-2xl font-black text-white heading-font">0</span>
+      </div>
+
+      <div class="glass p-4 rounded-xl border border-white/10 text-center">
+        <span class="text-xs text-gray-400 block mb-1">İzlenen Yapımlar</span>
+        <span id="stat-history-count" class="text-2xl font-black text-cyan-400 heading-font">0</span>
+      </div>
+
+      <div class="glass p-4 rounded-xl border border-white/10 text-center">
+        <span class="text-xs text-gray-400 block mb-1">Yapılan Yorumlar</span>
+        <span id="stat-comments-count" class="text-2xl font-black text-yellow-400 heading-font">0</span>
+      </div>
+
+      <div class="glass p-4 rounded-xl border border-white/10 text-center">
+        <span class="text-xs text-gray-400 block mb-1">Yayın Kalitesi</span>
+        <span class="text-2xl font-black text-red-500 heading-font">4K UHD</span>
+      </div>
+    </div>
+
+    <!-- Avatar Gallery Selection -->
+    <section id="avatar-gallery-section" class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10 space-y-4">
+      <div>
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-images text-red-500"></i> Profil Resmi Seçin
+        </h3>
+        <p class="text-xs text-gray-400 mt-0.5">Hazır avatarlardan birini seçin veya özel bir resim bağlantısı girin.</p>
+      </div>
+
+      <!-- Avatar Grid -->
+      <div id="avatar-presets-grid" class="flex flex-wrap items-center gap-4 pt-2">
+        <!-- Injected -->
+      </div>
+
+      <!-- Custom Avatar URL Input -->
+      <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center gap-3">
+        <div class="relative flex-1 w-full">
+          <i class="fa-solid fa-link absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+          <input type="url" 
+                 id="custom-avatar-url" 
+                 placeholder="Özel Profil Resmi URL'si yapıştırın (https://...)..." 
+                 class="w-full pl-9 pr-3 py-2.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-red-500" />
+        </div>
+        <button onclick="profileCtrl.applyCustomAvatar()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition cursor-pointer">
+          URL'yi Uygula
+        </button>
+      </div>
+    </section>
+
+    <!-- Edit Profile Form -->
+    <section class="glass-card rounded-2xl p-6 sm:p-8 border border-white/10 space-y-6">
+      <div class="border-b border-white/10 pb-3">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-user-pen text-red-500"></i> Profil Bilgilerini Düzenle
+        </h3>
+        <p class="text-xs text-gray-400 mt-0.5">İsminizi, e-posta adresinizi ve profil bilgilerinizi güncelleyin.</p>
+      </div>
+
+      <form id="profile-edit-form" onsubmit="event.preventDefault(); profileCtrl.saveProfileChanges();" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1.5">Görünen İsim (Ad Soyad)</label>
+            <input type="text" id="input-edit-name" required class="w-full px-3.5 py-2.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-red-500" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-300 mb-1.5">Kullanıcı Adı</label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs">@</span>
+              <input type="text" id="input-edit-username" required class="w-full pl-7 pr-3.5 py-2.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-red-500" />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-300 mb-1.5">E-Posta Adresi</label>
+          <input type="email" id="input-edit-email" required class="w-full px-3.5 py-2.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-red-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-300 mb-1.5">Hakkımda / Biyografi</label>
+          <textarea id="input-edit-bio" rows="3" class="w-full px-3.5 py-2.5 bg-black/40 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-red-500"></textarea>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <span class="text-[11px] text-gray-500">Değişiklikler anında cihazınıza kaydedilir.</span>
+          <button type="submit" class="btn-primary-glow px-6 py-3 rounded-xl text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-lg shadow-red-600/40">
+            <i class="fa-solid fa-floppy-disk"></i> Değişiklikleri Kaydet
+          </button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="glass border-t border-white/10 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="CineStream Pro" class="h-8 w-auto object-contain" />
+        <span class="text-xs text-gray-400">Güvenli Oturum & Profil Yönetimi</span>
+      </div>
+      <p class="text-xs text-gray-500">© 2026 CineStream+ Pro | Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <script src="data.js"></script>
+  <script src="auth.js"></script>
+  <script src="navbar.js"></script>
+  <script>
+    class ProfileController {
+      constructor() {
+        this.selectedAvatar = '';
+        this.init();
+      }
+
+      init() {
+        renderNavbar('profile');
+        const user = streamAuth.getUser();
+        this.selectedAvatar = user.avatar;
+
+        this.renderUserData();
+        this.renderAvatarsList();
+        this.renderStats();
+      }
+
+      renderUserData() {
+        const user = streamAuth.getUser();
+        document.getElementById('profile-display-avatar').src = user.avatar;
+        document.getElementById('profile-display-name').textContent = user.name;
+        document.getElementById('profile-display-username').textContent = `@${user.username}`;
+        document.getElementById('profile-display-bio').textContent = user.bio || 'Film ve dizi tutkunu.';
+        
+        const providerBadge = document.getElementById('profile-badge-provider');
+        if (user.provider === 'google') {
+          providerBadge.textContent = 'Google Hesabı';
+          providerBadge.className = 'px-2.5 py-0.5 rounded-full bg-blue-600/20 border border-blue-500/40 text-blue-400 font-bold text-[11px]';
+        } else if (user.provider === 'github') {
+          providerBadge.textContent = 'GitHub Hesabı';
+          providerBadge.className = 'px-2.5 py-0.5 rounded-full bg-purple-600/20 border border-purple-500/40 text-purple-400 font-bold text-[11px]';
+        } else {
+          providerBadge.textContent = 'Kayıtlı Üye';
+          providerBadge.className = 'px-2.5 py-0.5 rounded-full bg-red-600/20 border border-red-500/40 text-red-400 font-bold text-[11px]';
+        }
+
+        // Fill Form
+        document.getElementById('input-edit-name').value = user.name;
+        document.getElementById('input-edit-username').value = user.username;
+        document.getElementById('input-edit-email').value = user.email;
+        document.getElementById('input-edit-bio').value = user.bio || '';
+      }
+
+      renderAvatarsList() {
+        const grid = document.getElementById('avatar-presets-grid');
+        const avatars = streamAuth.defaultAvatars;
+
+        grid.innerHTML = avatars.map(url => `
+          <div onclick="profileCtrl.selectAvatar('${url}')" 
+               class="w-14 h-14 rounded-2xl overflow-hidden border-2 cursor-pointer transition transform hover:scale-110 ${this.selectedAvatar === url ? 'border-red-500 ring-2 ring-red-500/50 scale-105' : 'border-white/10 opacity-70 hover:opacity-100'}">
+            <img src="${url}" class="w-full h-full object-cover" />
+          </div>
+        `).join('');
+      }
+
+      selectAvatar(url) {
+        this.selectedAvatar = url;
+        document.getElementById('profile-display-avatar').src = url;
+        this.renderAvatarsList();
+        window.streamToast('Profil resmi seçildi! Kaydetmeyi unutmayın.', 'info');
+      }
+
+      applyCustomAvatar() {
+        const input = document.getElementById('custom-avatar-url');
+        const url = input.value.trim();
+        if (!url) {
+          window.streamToast('Lütfen geçerli bir resim linki girin.', 'error');
+          return;
+        }
+
+        this.selectAvatar(url);
+        input.value = '';
+      }
+
+      renderStats() {
+        const favs = JSON.parse(localStorage.getItem('cinestream_favs') || '[]');
+        const history = JSON.parse(localStorage.getItem('cinestream_history') || '[]');
+        const comments = JSON.parse(localStorage.getItem('cinestream_comments') || '{}');
+        
+        let commentCount = 0;
+        Object.values(comments).forEach(list => {
+          commentCount += list.length;
+        });
+
+        document.getElementById('stat-favs-count').textContent = favs.length;
+        document.getElementById('stat-history-count').textContent = history.length;
+        document.getElementById('stat-comments-count').textContent = commentCount;
+      }
+
+      saveProfileChanges() {
+        const name = document.getElementById('input-edit-name').value.trim();
+        const username = document.getElementById('input-edit-username').value.trim();
+        const email = document.getElementById('input-edit-email').value.trim();
+        const bio = document.getElementById('input-edit-bio').value.trim();
+
+        if (!name || !username || !email) {
+          window.streamToast('Lütfen zorunlu alanları doldurun.', 'error');
+          return;
+        }
+
+        streamAuth.saveUser({
+          name: name,
+          username: username,
+          email: email,
+          bio: bio,
+          avatar: this.selectedAvatar || streamAuth.getUser().avatar,
+          isLoggedIn: true
+        });
+
+        this.renderUserData();
+        window.streamToast('Profil bilgileriniz başarıyla güncellendi!', 'success');
+      }
+    }
+
+    let profileCtrl;
+    document.addEventListener('DOMContentLoaded', () => {
+      profileCtrl = new ProfileController();
+    });
+  </script>
+</body>
+</html>
