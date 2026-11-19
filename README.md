@@ -2,94 +2,58 @@
 
 <div align="center">
   <img src="logo.png" alt="CineStream Pro Logo" width="380" />
-  <p><strong>Ultra HD Sinema ve Dizi Portalı • Çoklu Kaynak • İnteraktif Profil & Google Giriş</strong></p>
+  <p><strong>Ultra HD sinema ve dizi portalı • Çoklu kaynak • İnteraktif profil</strong></p>
 </div>
 
 ---
 
 ## 🌟 Proje Hakkında
 
-**CineStream+ Pro**, modern kullanıcı deneyimi sunan, bağımsız sayfalarla çalışan, sinema modu, çoklu kaynak değiştirici (Türkçe Dublaj & Altyazı), favori listesi, izleme geçmişi ve Google tabanlı kimlik doğrulama sistemi içeren gelişmiş bir web platformudur.
+**CineStream+ Pro**, dizi ve filmleri keşfetmek için hazırlanmış, koyu temalı ve mobil uyumlu bir web arayüzüdür. Ana sayfada öne çıkan içerikleri, popüler dizileri ve filmleri görüntüleyebilir; kategorileri inceleyebilir, izleme listesi ve profil sayfalarına geçiş yapabilirsiniz.
 
 ## 🚀 Öne Çıkan Özellikler
 
-* **👑 3D Sinematik Tasarım:** Özel metallic ve neon kırmızı CineStream Pro logosu, glassmorphism cam efektleri ve koyu tema.
-* **📱 Dikey Afiş Deneyimi:** Ana sayfa ve diziler sayfasında temiz 2:3 dikey afişler; konusu ve detayları üzerine gelindiğinde (hover) akıcı bir şekilde açılır.
-* **🍿 Ayrı İzleme Sayfası (`watch.html`):** Her dizi ve film için bağımsız sinema sayfası:
-  * 16:9 geniş ekran oynatıcı
-  * Çoklu kaynak ve dublaj/altyazı geçişi
-  * Sezon ve bölüm çekmecesi
-  * Hızlı bölüm atlama (Önceki / Sonraki)
-  * **💡 Işıkları Kapat (Sinema Modu)**
-  * İnteraktif izleyici yorumları ve beğeni sistemi
-* **🔑 Google & GitHub Giriş Sistemi:** Gerçekçi Google OAuth hesap seçici arayüzü ve oturum kalıcılığı (`localStorage`).
-* **👤 Profil Yönetimi (`profile.html`):** Hazır avatar galerisi, özel resim URL'si ekleme, isim/biyografi düzenleme ve izleme istatistikleri.
-* **🏷️ Gelişmiş Filtreleme (`categories.html`):** Türlere (Aksiyon, Korku, Dram, Komedi, Salgın vb.), IMDb puanına ve formata göre filtreleme.
-* **📑 Kişisel Kütüphane (`watchlist.html`):** Favorilere ekleme ve kaldığınız bölümü hatırlayan izleme geçmişi.
+- **Sinematik koyu tema:** Glassmorphism kartlar, neon kırmızı vurgular ve duyarlı sayfa düzeni.
+- **Dikey afişler:** Dizi ve filmleri afiş kartları üzerinden keşfetme.
+- **Ana sayfa bölümleri:** Öne çıkan içerikler, popüler diziler, filmler ve yerel izleme geçmişi alanı.
+- **Kategori ve kütüphane bağlantıları:** Kategoriler, izleme listesi ve profil sayfalarına hızlı erişim.
+- **İstemci tarafı JavaScript:** İçerikler ve sayfa etkileşimleri proje JavaScript dosyalarıyla yüklenir.
 
----
+## 📁 Proje Dosyaları
 
-## 📺 Dahil Edilen İçerikler
+- `index.html` — Ana sayfa yapısı ve bölümleri.
+- `series.html` — Diziler sayfası.
+- `movies.html` — Filmler sayfası.
+- `categories.html` — Kategoriler ve keşif sayfası.
+- `watchlist.html` — İzleme listesi ve geçmiş sayfası.
+- `watch.html` — İzleme sayfası.
+- `profile.html` — Profil sayfası.
+- `data.js`, `auth.js`, `navbar.js`, `home.js`, `watch.js` — İçerik ve sayfa işlevleri.
+- `style.css` — Özel stil dosyası.
+- `logo.png` — Proje logosu.
 
-### Diziler
-1. **Hellbound** (1. Sezon 6 Bölüm & 2. Sezon 6 Bölüm - Dzen & FastStream)
-2. **Small Prophets** (1. Sezon 6 Bölüm - Türkçe Dublaj & Türkçe Altyazı)
-3. **The East Palace** (1. Sezon 8 Bölüm - OK.ru)
-4. **D.P.** (1. Sezon 6 Bölüm - MolyStream & Dizibox/OK.ru)
+## 💻 Yerel Olarak Çalıştırma
 
-### Filmler
-1. **Badland Hunters (2024) / Çöl Avcıları** (Türkçe Dublaj, Türkçe Altyazı, Fragman)
-2. **Apocalipsis Z: Nuevo mundo (2026) / Kıyamet Z: Yeni Dünya** (Türkçe Dublaj, Türkçe Altyazı, Fragman)
+Projeyi klonladıktan sonra proje klasörünü yerel bir web sunucusuyla yayınlayın. Örneğin Node.js veya Python yüklüyse:
 
----
-
-## 💻 Kurulum ve Çalıştırma
-
-Projeyi yerel bilgisayarınızda çalıştırmak için:
-
-### 1. Yöntem: Node.js ile (Önerilen)
 ```bash
 node server.js
 ```
-Ardından tarayıcınızda açın:
-```
-http://localhost:5000
-```
 
-### 2. Yöntem: Python ile
+veya:
+
 ```bash
 python server.py
 ```
 
-### 3. Yöntem: Windows Çift Tıkla Başlatıcı
-`start.bat` dosyasına çift tıklayarak tek adımda çalıştırabilirsiniz.
+Ardından sunucunun bildirdiği yerel adresi tarayıcıda açın. Sunucu dosyaları yoksa Python ile şu komutu kullanabilirsiniz:
 
----
-
-## 📁 Dosya Yapısı
-
-```
-stream-verse/
-├── index.html        # Ana Sayfa (Hero Banner, Dikey Afişler, Trendler)
-├── series.html       # Diziler Sayfası (Dikey Afişler, Sezonlar)
-├── movies.html       # Filmler Sayfası (Vizyondaki Yapımlar)
-├── categories.html   # Kategorilere Göre Keşif ve Filtreleme
-├── watchlist.html    # Favorilerim ve İzleme Geçmişim
-├── watch.html        # Bağımsız Sinema İzleme Sayfası
-├── profile.html      # Profil ve Hesap Ayarları
-├── data.js           # Dizi, Film, Bölüm ve Kaynak Veritabanı
-├── auth.js           # Google, GitHub & E-posta Kimlik Doğrulama
-├── navbar.js         # Ortak Başlık, Canlı Arama ve Menü
-├── home.js           # Ana Sayfa Kontrolcüsü
-├── watch.js          # Oynatıcı ve Bölüm Kontrolcüsü
-├── style.css         # Modern Glassmorphism & Sinema Teması
-├── logo.png          # Özel 3D CineStream Pro Logosu
-├── server.js         # Node.js Sunucu Dosyası
-├── server.py         # Python 3 Sunucu Dosyası
-└── start.bat         # Windows Hızlı Başlatıcı
+```bash
+python -m http.server 8000
 ```
 
----
+Sonrasında `http://localhost:8000` adresine gidin.
 
 ## 📄 Lisans
-Bu proje eğitim ve portfolyo amaçlı geliştirilmiştir. Tüm hakları saklıdır © 2026 CineStream+ Pro.
+
+Bu proje eğitim ve portfolyo amaçlı geliştirilmiştir. © 2026 CineStream+ Pro.
